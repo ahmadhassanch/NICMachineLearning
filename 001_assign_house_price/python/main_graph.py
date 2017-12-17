@@ -23,22 +23,18 @@ def linearRegression(n, x, y, alpha, t0, t1):
 
 
 def init0():
-	global x, y
+	global x, y, t0, t1
 	yp = hypothesis(t0, t1, x)
 	line0.set_data(x, y)
 	line1.set_data(x, yp)
 	t01_text.set_text('')
-	return line1, t01_text
 
 def animate0(i):
-	global x
-	global t0, t1
-	#y = np.sin(2 * np.pi * (x - 0.01 * i))
+	global x, y, t0, t1
 	t0, t1 = linearRegression(i, x, y, alpha, t0, t1);
 	yp = hypothesis(t0, t1, x)
-	t01_text.set_text('t0, t1 = %.6f, %.6f' % (t0,t1) )
 	line1.set_data((x, yp))
-	return line1, t01_text
+	t01_text.set_text('t0, t1 = %.6f, %.6f' % (t0,t1) )
 
 
 fig0 = plt.figure(0)
