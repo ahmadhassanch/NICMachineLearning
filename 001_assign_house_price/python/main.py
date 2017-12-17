@@ -10,7 +10,7 @@ def lossFunction(t0, t1, x, y):
 	error = 0.5/len(x)*np.sum((h - y)**2)
 	return error;
 
-def gradienDecent(x, y, alpha, t0, t1):
+def linearRegression(x, y, alpha, t0, t1):
 	m = len(x)
 	for n in range(100):
 		t0t = t0 - alpha / m * np.sum((hypothesis(t0, t1, x) - y)) 
@@ -33,7 +33,7 @@ t0 = -0.01;
 t1 = -0.01;
 alpha = 0.000001
 
-t0,t1 = gradienDecent(x, y, alpha, t0, t1)
+t0,t1 = linearRegression(x, y, alpha, t0, t1)
 yp = hypothesis(t0, t1, x);
 plt.plot(x,y,'k+',x,yp)
 plt.show()
