@@ -53,8 +53,8 @@ t0 = -0.01;
 t1 = -0.01;
 alpha = 0.0000001
 
-animateGraph = True;
-#animateGraph = False;
+#animateGraph = True;
+animateGraph = False;
 
 if animateGraph:
 	anim0 = animation.FuncAnimation(fig0, animate0, init_func=init0, frames=100, interval=20, blit=False, repeat=False)
@@ -64,7 +64,8 @@ else:
 		t0,t1 = linearRegression(i, x, y, alpha, t0, t1)
 
 	yp = hypothesis(t0, t1, x);
-	ax0.plot(x,y,'k+',x,yp)
+	#ax0.plot(x,y,'k+',x,yp)
+	line0.set_data((x, y))
 	line1.set_data((x, yp))
 
 #anim0.save('converge_animation.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
