@@ -48,29 +48,30 @@ x = [ 1361.7, 1815,  1788.2,  803.31,   968.6,  1646.8,  1861.6,  1760.1,  1099.
 y = [31.857, 42.914 ,46.076 ,20.993 ,22.318 ,42.266 ,44.849 ,42.103 , 28.39 ,29.526 ,44.403 , 10.65 , 19.42 ,15.119 ,40.226 ,5.8472 ,16.686 ,30.056 ,32.321 ,25.916 ,16.327 ,22.011 ,23.583 ,10.541 , 8.846 ,32.298 ,33.493 ,42.379 ,27.143 , 20.68 ,13.676 ,4.7659 ,12.785 ,20.199 ,31.044 ,32.768 ,39.217 ,31.276 ,7.9755 ,34.906 ,9.3491 ,22.875 ,20.139 ,36.103 ,9.5162 ,38.906 ,14.728 ,13.115 ,6.9772 ,12.957 ,15.801 ,16.325 ,44.983 ,15.956 ,8.7618 ,39.009 ,32.646 ,31.537 ,19.173 ,34.578 ,14.751 ,19.047 ,  19.2 ,13.215 ,35.421 ,37.656 ,6.6254 ,20.016 ,17.334 ,48.811 , 40.66 ,21.243 ,36.965 ,34.117 ,32.146 ,46.353 ,37.914 ,27.005 ,6.8673 ,47.148 ,16.713 ,27.139 ,20.335 ,40.249 ,40.225 ,42.881 ,44.417 ,7.0105 ,36.617 ,28.443 ,19.509 ,32.579 , 20.43 ,12.082 ,17.222 ,8.4334 ,11.301 ,19.876 ,30.826 ,10.155]
 x = np.array(x);
 y = np.array(y);
+#x=np.array([0,3,1,4])
+#y=3+.5*x;
 
 t0 = -0.01;
 t1 = -0.01;
 alpha = 0.0000001
 
-#animateGraph = True;
-animateGraph = False;
+animateGraph = True;
+#animateGraph = False;
 
 if animateGraph:
-	anim0 = animation.FuncAnimation(fig0, animate0, init_func=init0, frames=100, interval=20, blit=False, repeat=False)
+	anim0 = animation.FuncAnimation(fig0, animate0, init_func=init0, frames=100, interval=2, blit=False, repeat=False)
 
 else:
 	for i in range(100):
 		t0,t1 = linearRegression(i, x, y, alpha, t0, t1)
 
 	yp = hypothesis(t0, t1, x);
-	#ax0.plot(x,y,'k+',x,yp)
 	line0.set_data((x, y))
 	line1.set_data((x, yp))
 
 #anim0.save('converge_animation.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
 
-plt.show(block=False)
+plt.show(block=True)
 
 
 
