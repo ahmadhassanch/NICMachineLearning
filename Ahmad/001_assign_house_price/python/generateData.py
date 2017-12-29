@@ -6,7 +6,7 @@ def hypothesis(t0, t1, x):
 	return h;
 
 def hypothesis2(theta, x):
-	h = theta.dot(x);
+	h = x.dot(theta);
 	return h;
 
 def lossFunction(t0, t1, x, y):
@@ -18,6 +18,8 @@ def lossFunction(t0, t1, x, y):
 
 def linearRegression(n, x, y, alpha, t0, t1):
 	m = x.shape[0];
+	#print m
+	#exit()
 	t0t = t0 - alpha / m * np.sum((hypothesis(t0, t1, x) - y)) 
 	t1t = t1 - alpha / m * np.sum((hypothesis(t0, t1, x) - y) * x) 
 	t0 = t0t;
@@ -31,9 +33,8 @@ def generateDataPoly(xmin, xmax, size):
 	x = np.linspace(xmin, xmax, m);
 	np.random.shuffle(x)
 	return x
-	
 
-def computeData(theta, x, noise):
+def computeDataPoly(theta, x, noise):
 	yIdeal = np.polyval(theta, x);
 	
 	random = np.random.rand(m);
@@ -45,6 +46,8 @@ def plotIdealvsActual(x, y, yIdeal):
 	plt.plot(x, yIdeal, '+', x, y, 'o');
 	plt.grid()	
 	plt.show()
+
+
 '''
 
 def generateDataMultiFeature(theta, m, xRange, noise):
@@ -67,14 +70,16 @@ def generateDataMultiFeature(theta, m, xRange, noise):
 '''
 
 
-
 if 0:
 	theta = [.93, 5.4, -3.42, 8.7];
 	noise = 20;
 else:
-	theta  = np.array([.93, 0.025]);
+	#theta  = np.array([.93, 0.025,0.5]);
+	#noise  = np.array([0, 45,60]);
+	#xRange = np.array([[1,1],[200, 2000],[20, 250]]);
+	theta  = np.array([5, 1]);
 	noise  = np.array([0, 45]);
-	xRange = np.array([[1,1],[200, 2000]]);
+	xRange = np.array([[1,1],[-1, 3]]);
 
 n = 1
 N = n+1;
@@ -87,11 +92,14 @@ for i in range(N):
 	
 X = np.array(X);
 print X.shape
-print X
-exit(0)
-y, yIdeal = computeData(theta, x, noise[i])
-#y, yIdeal
-#x, y, yIdeal = generateDataMultiFeature(theta, m, xRange, noise);
+X = X.T;        #in excel sytle data (each row is a sample/example, contains multiple feature)
+
+yIdeal = hypothesis2(theta,X)
+y = yIdeal;
+print X.shape , theta.shape , "yIdeal : ",yIdeal.shape
+print yIdeal.T
+
+#y, yIdeal = computeData(theta, x, noise[i])
 
 #plotIdealvsActual(x, y, yIdeal)
 
@@ -104,14 +112,15 @@ print x.shape
 #exit()
 
 
-t0 = -0.01;
+t0 = 0.01;
 t1 = -0.01;
-alpha = 0.000001
+alpha = 0.01
 
 #print lossFunction(0,1,x,y);
 #print hypothesis(-1, 0.5, 4)
 #exit()
 
+x = X[:,1];
 for i in range(1000):
 	t0,t1 = linearRegression(i, x, y, alpha, t0, t1)
 
