@@ -39,8 +39,9 @@ def plotIdealvsActual(x, y, yIdeal):
 	plt.grid()	
 	plt.show()
 
-def generateX(xRange):
+def generateX(xRange, m):
 	X = [];
+	N = xRange.shape[0];
 	for i in range(N):
 		x = generateDataPoly(xRange[i,0], xRange[i,1], m);
 		X.append(x);
@@ -77,7 +78,7 @@ m = 10;
 N = theta.shape[0];
 n = N-1;
 
-X  = generateX(xRange)
+X  = generateX(xRange, m)
 X = np.array(X);
 print X.shape
 X = X.T;        #in excel sytle data (each row is a sample/example, contains multiple feature)
