@@ -15,19 +15,15 @@ def lossFunction(theta, X, y):
 def linearRegression(i, X, y, alpha, theta):
 	m = X.shape[0];
 	n = X.shape[1];
-	h = hypothesis(theta, X);
-	hy = h - y;
-	p = np.expand_dims(hy,0) *  X.T;
+	
+	hy = hypothesis(theta, X) - y;
+	p = hy * X.T;
 	dJdx =  np.sum(p,1);
-
 	theta = theta - (alpha / m) * dJdx
 	print i, theta, " == ", lossFunction(theta, X, y)
-
 	return theta
 
-def generateDataPoly(xmin, xmax, size):
-	m = size[0];
-	n = size[1];
+def generateDataPoly(xmin, xmax, m):
 	x = np.linspace(xmin, xmax, m);
 	np.random.shuffle(x)
 	return x
@@ -57,17 +53,17 @@ else:
 	#noise  = np.array([0, 45, 55]);
 	#xRange = np.array([[1,1],[-1, 3], [2,5]]);
 
-	theta  = np.array([-2, 4]);
-	noise  = np.array([0, 45]);
-	xRange = np.array([[1,1],[-1, 3]]);
+	theta  = np.array([-2, 4, 2]);
+	noise  = np.array([0, 45, 34]);
+	xRange = np.array([[1,1],[-1, 3],[-5, 2]]);
 
-n = 1
+n = 2
 N = n+1;
 m = 10;
 print "theta = ", theta
 X = [];
 for i in range(N):
-	x = generateDataPoly(xRange[i,0], xRange[i,1], (m,n));
+	x = generateDataPoly(xRange[i,0], xRange[i,1], m);
 	X.append(x);
 	
 X = np.array(X);
@@ -99,7 +95,7 @@ alpha = 0.01
 #exit()
 
 
-for i in range(1000):
+for i in range(10000):
 	theta = linearRegression(i, X, y, alpha, theta)
 
 #yp = hypothesis(t0, t1, x);
