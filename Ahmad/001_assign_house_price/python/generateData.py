@@ -40,6 +40,11 @@ def plotIdealvsActual(x, y, yIdeal):
 	plt.grid()	
 	plt.show()
 
+def computeY(theta, X, noise):
+	#y, yIdeal = computeY(theta,X,noise)
+	yIdeal = hypothesis(theta, X);
+	y = yIdeal
+	return y, yIdeal
 
 if 0:
 	theta = [.93, 5.4, -3.42, 8.7];
@@ -70,12 +75,11 @@ X = np.array(X);
 print X.shape
 X = X.T;        #in excel sytle data (each row is a sample/example, contains multiple feature)
 
-yIdeal = hypothesis(theta,X)
+y, yIdeal = computeY(theta,X,noise)
 y = yIdeal;
 print X.shape , theta.shape , "yIdeal : ",yIdeal.shape
 print yIdeal.T
 
-#y, yIdeal = computeData(theta, x, noise[i])
 #plotIdealvsActual(x, y, yIdeal)
 
 #x = [ 1361.7, 1815,  1788.2,  803.31,   968.6,  1646.8,  1861.6,  1760.1,  1099.4,  1252.1,  1864.6,  499.01,  873.85,  666.93,  1694.9,  326.32,  705.85,  1199.1,  1314.1,  937.62,  665.17,  950.14,   887.7,   373.4,  436.31,  1297.8,  1381.1,  1713.8,  1099.7,  752.96,  505.58,  287.78,  606.47,  860.55,  1222.1,  1225.5,  1601.8,  1262.4,  399.19,  1353.2,  329.63,  858.52,  717.15,  1534.6,  320.58,  1562.9,  633.28,  615.64,  221.58,  438.45,   576.9,  585.53,  1830.4,  699.99,  374.78,  1609.1,  1401.5,  1302.8,  818.83,  1442.6,  620.41,  754.45,  843.14,  590.06,  1419.1,  1524.8,  218.03,  840.65,  631.92,  1869.7,  1573.4,   882.9,  1434.7,    1458,  1262.7,  1931.7,  1606.4,  1169.2,  369.45,  1794.8,  663.49,  1034.3,  795.44,  1562.2,  1645.1,  1645.6,  1777.9,  357.45,  1402.2,  1104.4,  804.01,  1259.4,  833.48,  572.09,  671.88,  377.57,  470.11,  777.83,  1269.9,  476.73]
