@@ -25,17 +25,21 @@ def linearRegression(n, x, y, alpha, t0, t1):
 	print n, t0, t1, " == ", lossFunction(t0, t1, x, y)
 	return t0,t1
 
-def generateDataPoly(theta, xmin, xmax, size, noise):
+def generateDataPoly(xmin, xmax, size):
 	m = size[0];
 	n = size[1];
 	x = np.linspace(xmin, xmax, m);
+	np.random.shuffle(x)
+	return x
 	
+
+def computeData(theta, x, noise):
 	yIdeal = np.polyval(theta, x);
-	noise
+	
 	random = np.random.rand(m);
 	yrand = 2 * noise * (random - 0.5);     #random = [0, 1]
 	y = yIdeal + yrand;
-	return x, y, yIdeal;
+	return y, yIdeal;
 
 def plotIdealvsActual(x, y, yIdeal):
 	plt.plot(x, yIdeal, '+', x, y, 'o');
@@ -62,19 +66,31 @@ def generateDataMultiFeature(theta, m, xRange, noise):
 	exit()
 '''
 
+
+
 if 0:
 	theta = [.93, 5.4, -3.42, 8.7];
 	noise = 20;
 else:
-	theta  = np.array([.93, 5.4]);
-	noise  = np.array([0, 4]);
-	xRange = np.array([[1,1],[-7.4, 4]]);
+	theta  = np.array([.93, 0.025]);
+	noise  = np.array([0, 45]);
+	xRange = np.array([[1,1],[200, 2000]]);
 
-n = 1;
-m = 200;
+n = 1
+N = n+1;
+m = 10;
 print "theta = ", theta
-x, y, yIdeal = generateDataPoly(theta, -7.4, 4, (m,n), noise[1]);
-
+X = [];
+for i in range(N):
+	x = generateDataPoly(xRange[i,0], xRange[i,1], (m,n));
+	X.append(x);
+	
+X = np.array(X);
+print X.shape
+print X
+exit(0)
+y, yIdeal = computeData(theta, x, noise[i])
+#y, yIdeal
 #x, y, yIdeal = generateDataMultiFeature(theta, m, xRange, noise);
 
 #plotIdealvsActual(x, y, yIdeal)
@@ -90,7 +106,7 @@ print x.shape
 
 t0 = -0.01;
 t1 = -0.01;
-alpha = 0.01
+alpha = 0.000001
 
 #print lossFunction(0,1,x,y);
 #print hypothesis(-1, 0.5, 4)
