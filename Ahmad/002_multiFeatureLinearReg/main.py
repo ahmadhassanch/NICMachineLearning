@@ -3,7 +3,11 @@ import matplotlib.pyplot as plt
 from generateData import generateData
 import linearRegressionModel as linRegModel
 import gradientDescent as gradDescent
-import CSVutils as csv
+
+import sys
+sys.path.append('..')
+
+import utils.CSV.CSVutils as csv
 
 #theta = [.93, 5.4, -3.42, 8.7];
 #noise = 20;
