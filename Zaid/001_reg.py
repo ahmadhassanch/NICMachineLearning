@@ -12,8 +12,6 @@ def lossFunc(y,y_pred):
 	return loss
 
 
-
-
 m = np.asarray([3])
 x = np.random.rand(input_length,dataset_size)		# matrix of inputs
 c = np.asarray([2])
