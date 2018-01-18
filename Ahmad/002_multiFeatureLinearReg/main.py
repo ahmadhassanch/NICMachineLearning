@@ -42,7 +42,7 @@ def main():
 	#testCallback(newFunc)
 	#exit()
 	noise = 1;
-	theta, xRange =  defineRanges()	
+	
 	N = theta.shape[0];                      # n = N -1  is the number of features
 	X, y, yIdeal = makeData(m, computeYNew, noise);
 	#X, y, yIdeal = makeDataMy(theta, xRange, @computeY, noise, m);
