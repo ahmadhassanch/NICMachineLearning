@@ -14,9 +14,17 @@ def defineRanges():
 	#xRange = np.array([[1,1],[200, 2000],[20, 250]]);
 
 	# 3 feature example
-	theta  = np.array([-2, 4, 2, 3]);
-	noise  = 1;
-	xRange = np.array([[1,1],[-1, 3],[-5, 2],[0, 1]]);
+	#theta  = np.array([-2, 4, 2, 3]);
+	#noise  = 1;
+	#xRange = np.array([[1,1],[-1, 3],[-5, 2],[0, 1]]);
+
+	theta = [];
+	xRange = []
+	theta.append(-2); xRange.append([1, 1]);
+	theta.append(-4); xRange.append([-1, 3]);
+	theta.append(-2); xRange.append([-5, 2]);
+	theta.append(-3); xRange.append([0, 1]);
+
 	return theta, xRange, noise
 
 def makeData(m):
