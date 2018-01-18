@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import linearRegressionModel as linRegModel
+import lossAndHypothesis
 
 def generateDataPoly(xmin, xmax, m):
 	x = np.linspace(xmin, xmax, m);
@@ -29,7 +29,7 @@ def computeY(theta, X, noise):
 	m = X.shape[0];
 	N = X.shape[1];
 
-	yIdeal = linRegModel.hypothesis(theta, X);
+	yIdeal = lossAndHypothesis.hypothesis(theta, X);
 	random = np.random.rand(m);
 	yRand = 2 * noise * (random - 0.5);     #random = [0, 1]
 	y = yIdeal + yRand; 

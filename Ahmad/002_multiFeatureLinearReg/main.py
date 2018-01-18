@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from generateData import generateData
-import linearRegressionModel as linRegModel
+import lossAndHypothesis
 import gradientDescent as gradDescent
 
 import sys
@@ -44,7 +44,7 @@ for i in range(50):
 	lossArr.append(loss);
 
 
-error = linRegModel.lossFunction(theta, X, y)
+error = lossAndHypothesis.lossFunction(theta, X, y)
 print "Error on Ideal Thetas: ", error
 #iterationNo = np.arange()
 plt.plot(lossArr)
