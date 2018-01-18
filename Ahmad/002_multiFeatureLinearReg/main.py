@@ -26,25 +26,21 @@ def makeData(m):
 	#X, y = csv.readCSV('03_multiFeatureLinearReg.csv')
 	return X, y, yIdeal
 
-m = 1000;
-nIterations = 500;
-alpha = 0.1
 
+def main():
+	m = 1000;
 
-theta, xRange, noise = defineRanges()	
-N = theta.shape[0];                      # n = N -1  is the number of features
+	theta, xRange, noise =  defineRanges()	
+	N = theta.shape[0];                      # n = N -1  is the number of features
+	X, y, yIdeal = makeData(m);
+	
+	# GRADIENT DESCENT
+	nIterations = 500;
+	alpha = 0.1
+	thetaEst = np.zeros(N);   # t0, t1, .... , tn+1
+	thetas, lossArr = gradDescent.gradientDescentLoop(X, y, thetaEst, alpha, nIterations)
+	gradDescent.plotCost(thetas, lossArr)
+	#thetaEst = thetas[-1];   #final value of thetas
 
-X, y, yIdeal = makeData(m);
-thetaEst = np.zeros(N);   # t0, t1, .... , tn+1
-
-thetas, lossArr = gradDescent.gradientDescentLoop(X, y, thetaEst, alpha, nIterations)
-
-thetaEst = thetas[-1];   #final value of thetas
-
-error = lossAndHypothesis.lossFunction(theta, X, y)
-print "Error on Ideal Thetas: ", error
-#iterationNo = np.arange()
-
-gradDescent.plotCost(thetas, lossArr)
-
+main()
 
