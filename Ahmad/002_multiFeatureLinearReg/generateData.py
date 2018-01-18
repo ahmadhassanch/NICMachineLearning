@@ -24,21 +24,11 @@ def generateX(xRange, m):
 	X = X.T;
 	return X;
 
-def computeY(theta, X, noise):
-	#y, yIdeal = computeY(theta,X,noise)
-	m = X.shape[0];
-	N = X.shape[1];
 
-	yIdeal = lossAndHypothesis.hypothesis(theta, X);
-	random = np.random.rand(m);
-	yRand = 2 * noise * (random - 0.5);     #random = [0, 1]
-	y = yIdeal + yRand; 
 
-	return y, yIdeal
-
-def generateData(theta, xRange, noise, m):
+def generateData(theta, xRange, noise, m, callback):
 	X  = generateX(xRange, m); #in excel sytle data (each row is a sample/example, contains multiple feature)
-	y, yIdeal = computeY(theta, X, noise)
+	y, yIdeal = callback(theta, X, noise)
 	return X, y, yIdeal
 
 
