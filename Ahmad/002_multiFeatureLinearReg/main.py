@@ -17,7 +17,7 @@ def defineRanges():
 	theta.append(-2.5); xRange.append([-2, 1]);
 	return np.array(theta), np.array(xRange)
 
-def makeData(m, computeYFunc, noise):
+def makeData(computeYFunc, m, noise):
 	thetaRef, xRange = defineRanges()
 	X, y, yIdeal = generateData(thetaRef, xRange, noise,  m, computeYFunc)
 	#csv.writeCSV(X, y, '03_multiFeatureLinearReg.csv')
@@ -39,12 +39,9 @@ def computeYNew(theta, X, noise):
 
 def main():
 	m = 1000;
-	#testCallback(newFunc)
-	#exit()
 	noise = 1;
-	
-	N = theta.shape[0];                      # n = N -1  is the number of features
-	X, y, yIdeal = makeData(m, computeYNew, noise);
+	X, y, yIdeal = makeData(computeYNew, m, noise);
+	N = X[0].shape[0]                    # n = N -1  is the number of features
 	#X, y, yIdeal = makeDataMy(theta, xRange, @computeY, noise, m);
 	
 	# GRADIENT DESCENT
