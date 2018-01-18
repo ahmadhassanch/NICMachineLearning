@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np 
 import tensorflow as tf
-from plots import animateMultiple
+#from plots import animateMultiple
 
 input_length = 2		# this is a constant for this example
 dataset_size = 1000
@@ -105,4 +105,4 @@ plt.show()
 xlist = [column(wreturned1,0),column(wreturned2,0)]
 ylist = [column(wreturned1,1),column(wreturned2,1)]
 
-animateMultiple.animatePlots(xlist, ylist)
+#animateMultiple.animatePlots(xlist, ylist)

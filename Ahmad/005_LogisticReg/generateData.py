@@ -1,18 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import logisticRegression as logRegr
+from mpl_toolkits.mplot3d import Axes3D
+import lossAndHypothesis 
 
 def generateDataPoly(xmin, xmax, m):
 	x = np.linspace(xmin, xmax, m);
 	np.random.shuffle(x)
 	return x
 
-def computeDataPoly(theta, x, noise):
-	yIdeal = np.polyval(theta, x);
-	random = np.random.rand(m);
-	yrand = 2 * noise * (random - 0.5);     #random = [0, 1]
-	y = yIdeal + yrand;
-	return y, yIdeal;
 
 def generateX(xRange, m):
 	X = [];
@@ -24,35 +19,28 @@ def generateX(xRange, m):
 	X = X.T;
 	return X;
 
-
-def computeY(theta, X, noise):
-	#y, yIdeal = computeY(theta,X,noise)
-	m = X.shape[0];
-	N = X.shape[1];
-
-	yIdeal = logRegr.hypothesis(theta, X);
-	random = np.random.rand(m);
-	yRand = 2 * noise * (random - 0.5);     #random = [0, 1]
-	y = yIdeal + yRand;
-
-	return y, yIdeal
-
-
-def generateData(theta, xRange, m, noise):
-	X  = generateX(xRange, m); #in excel sytle data (each row is a sample/example, contains multiple feature)
-	y, yIdeal = computeY2(theta, X, noise)
-	return X, y, yIdeal
-
-
-
-def computeY2(X):
-	y = -X[:,1] + 0.5
+def computeY(X):
+	m = -1;
+	c = 0.5;
+	y = m*X[:,1] + c
 	y = np.where(X[:,2]<y,0,1)
 	return y
 
-def generateData2(theta, xRange, m, noise):
+def generateData(theta, xRange, m, noise):
 	X  = generateX(xRange, m); #in excel sytle data (each row is a sample/example, contains multiple feature)
-	y = computeY2(X)
+	y = computeY(X)
+	#drawPlot(X, y);
 	return X, y
 
+def drawPlot(X, y):
+	x1 = X[:,1]
+	x2 = X[:,2]
+	fig = plt.figure()
+	ax = fig.add_subplot(111,projection='3d')
+	ax.scatter(x1,x2,y,c=y,marker='o')
+	ax.set_xlabel('X1 Feature X')
+	ax.set_ylabel('X2 Feature Y')
+	ax.set_zlabel('Y  labels Z')
+	#plt.plot(x1,x2,h)
+	plt.show()
 

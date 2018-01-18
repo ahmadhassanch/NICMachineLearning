@@ -36,7 +36,7 @@ def computeY(theta, X, noise):
 
 	return y, yIdeal
 
-def generateData(theta, xRange, m, noise):
+def generateData(theta, xRange, noise, m):
 	X  = generateX(xRange, m); #in excel sytle data (each row is a sample/example, contains multiple feature)
 	y, yIdeal = computeY(theta, X, noise)
 	return X, y, yIdeal

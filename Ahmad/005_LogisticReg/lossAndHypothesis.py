@@ -4,7 +4,6 @@ def sigmoid(z):
     gx = 1/(1+np.exp(-z))
     return gx
 
-
 def hypothesis(theta, x):
     z = x.dot(theta);
     h = sigmoid(z);
@@ -17,9 +16,3 @@ def lossFunction(theta, X, y):
     p2 = (1-y)* np.log(1.0-h)
     J = np.mean(p1 - p2)
     return J;
-
-def lossFunction2(theta, X, y):
-    m = X.shape[0];
-    h  = hypothesis(theta, X);
-    error = 0.5/m*np.sum((h - y)**2)
-    return error;
