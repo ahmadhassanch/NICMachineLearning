@@ -21,9 +21,9 @@ def defineRanges():
 	theta = [];
 	xRange = []
 	theta.append(-2); xRange.append([1, 1]);
-	theta.append(-4); xRange.append([-1, 3]);
-	theta.append(-2); xRange.append([-5, 2]);
-	theta.append(-3); xRange.append([0, 1]);
+	theta.append(4); xRange.append([-1, 3]);
+	theta.append(2); xRange.append([-5, 2]);
+	theta.append(3); xRange.append([0, 1]);
 
 	return theta, xRange, noise
 
