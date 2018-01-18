@@ -31,13 +31,16 @@ m = 100;
 N = theta.shape[0];
 n = N-1;
 
+def makeData(m):
+	theta, xRange, noise= defineRanges()
+	X, y, yIdeal = generateData(theta, xRange, noise,  m)
+	#csv.writeCSV(X, y, '03_multiFeatureLinearReg.csv')
+	#X, y = csv.readCSV('03_multiFeatureLinearReg.csv')
+	print X.shape
+	print y.shape
+	return X, y, yIdeal
 
-X, y, yIdeal = generateData(theta, xRange, noise, m)
-
-#csv.writeCSV(X, y, '03_multiFeatureLinearReg.csv')
-#X, y = csv.readCSV('03_multiFeatureLinearReg.csv')
-print X.shape
-print y.shape
+X, y, yIdeal = makeData(m);
 
 
 thetaEst = np.zeros(N);   # t0, t1, .... , tn+1
@@ -46,7 +49,6 @@ lossArr = [];
 for i in range(50):
 	thetaEst, loss = gradDescent.gradientDescent(i, X, y, alpha, thetaEst)
 	lossArr.append(loss);
-
 
 error = lossAndHypothesis.lossFunction(theta, X, y)
 print "Error on Ideal Thetas: ", error
