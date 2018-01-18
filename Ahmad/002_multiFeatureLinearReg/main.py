@@ -1,18 +1,11 @@
 import numpy as np
-import matplotlib.pyplot as plt
 from generateData import generateData
 import lossAndHypothesis
 import gradientDescent as gradDescent
-
 import sys
 sys.path.append('..')
-
 import utils.CSV.CSVutils as csv
 
-def plotCost(cost):
-	plt.plot(cost)
-	plt.grid()
-	plt.show()
 
 def defineRanges():
 	# 2 feature example
@@ -26,34 +19,32 @@ def defineRanges():
 	xRange = np.array([[1,1],[-1, 3],[-5, 2],[0, 1]]);
 	return theta, xRange, noise
 
-theta, xRange, noise = defineRanges()	
-m = 100;
-N = theta.shape[0];
-n = N-1;
-
 def makeData(m):
 	theta, xRange, noise= defineRanges()
 	X, y, yIdeal = generateData(theta, xRange, noise,  m)
 	#csv.writeCSV(X, y, '03_multiFeatureLinearReg.csv')
 	#X, y = csv.readCSV('03_multiFeatureLinearReg.csv')
-	print X.shape
-	print y.shape
 	return X, y, yIdeal
 
-X, y, yIdeal = makeData(m);
-
-
-thetaEst = np.zeros(N);   # t0, t1, .... , tn+1
+m = 1000;
+nIterations = 500;
 alpha = 0.1
-lossArr = [];
-for i in range(50):
-	thetaEst, loss = gradDescent.gradientDescent(i, X, y, alpha, thetaEst)
-	lossArr.append(loss);
+
+
+theta, xRange, noise = defineRanges()	
+N = theta.shape[0];                      # n = N -1  is the number of features
+
+X, y, yIdeal = makeData(m);
+thetaEst = np.zeros(N);   # t0, t1, .... , tn+1
+
+thetas, lossArr = gradDescent.gradientDescentLoop(X, y, thetaEst, alpha, nIterations)
+
+thetaEst = thetas[-1];   #final value of thetas
 
 error = lossAndHypothesis.lossFunction(theta, X, y)
 print "Error on Ideal Thetas: ", error
 #iterationNo = np.arange()
 
-plotCost(lossArr)
+gradDescent.plotCost(thetas, lossArr)
 
 
