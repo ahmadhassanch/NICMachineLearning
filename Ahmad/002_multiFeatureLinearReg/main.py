@@ -1,9 +1,9 @@
 import numpy as np
-from generateData import generateData
-import gradientDescent as gradDescent
 import sys
 sys.path.append('..')
-#import utils.CSV.CSVutils as csv
+import utils.gradient.gradientDescent as gradDescent
+import utils.data.generateData as genData
+import utils.CSV.CSVutils as csv
 
 
 def hypFunc(theta, x):
@@ -25,9 +25,6 @@ def defineThetaAndRanges():
 	theta.append(-2); xRange.append([1, 1]);
 	theta.append(4); xRange.append([-1, 3]);
 	theta.append(2); xRange.append([-5, 2]);
-	theta.append(5.2); xRange.append([-1, 1]);
-	theta.append(-5.2); xRange.append([-1, 1]);
-	theta.append(-.2); xRange.append([-1, 1]);
 	return np.array(theta), np.array(xRange)
 
 def computeY(theta, X, noise):
@@ -46,10 +43,10 @@ def main():
 	m = 1000;
 	noise = 1;
 	thetaRef, xRange = defineThetaAndRanges()
-	X, y, yIdeal = generateData(thetaRef, xRange, noise,  m, computeY)
+	X, y, yIdeal = genData.generateData(thetaRef, xRange, noise,  m, computeY)
 	N = X[0].shape[0]                    # n = N -1  is the number of features
 
-	nIter = 500;
+	nIter = 100;
 	alpha = 0.1
 	thetaEst = np.zeros(N);   # t0, t1, .... , tn+1
 	thetas, lossArr = gradDescent.gradientDescentLoop(hypFunc, lossFunc, X, y, thetaEst, alpha, nIter)
