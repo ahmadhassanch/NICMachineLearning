@@ -6,6 +6,7 @@ import utils.gradient.gradientDescent as gradDescent
 import utils.data.generateData as genData
 import utils.CSV.CSVutils as csv
 import utils.data.normalize as norm
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 def sigmoid(z):
 	gx = 1/(1+np.exp(-z))
@@ -50,12 +51,32 @@ def computeY(theta, X, noise):
 
 i = 0;
 
+def plot3d(x1, x2, x3, y):
+	fig = plt.figure()
+	ax = fig.add_subplot(111,projection='3d')
+	ax.scatter(x1,x2,x3,c=y,marker='o')
+	ax.set_xlabel('X1 Feature X')
+	ax.set_ylabel('X2 Feature Y')
+	ax.set_zlabel('X3 Feature Z')
+	#plt.plot(x1,x2,h)
+
+#ax = Axes3D(fig)
+	x = [-1,1,1,-1]
+	y = [-1,-1,1,1]
+	z =[.5, .5, .5, .5]
+	verts = [zip(x, y,z)]
+	ax.add_collection3d(Poly3DCollection(verts))
+
+	plt.show()
 
 def main():
 	m = 100;
 	noise = 0.0;
 	thetaRef, xRange = defineThetaAndRanges()
 	X, y, yIdeal = genData.generateData(thetaRef, xRange, noise, m, computeY)
+
+	plot3d(X[:,1],X[:,2], X[:,3],y)
+	exit()
 	#X = norm.normalize(X)
 	N = X[0].shape[0]  # n = N -1  is the number of features
 
