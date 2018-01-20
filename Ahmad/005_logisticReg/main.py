@@ -28,9 +28,9 @@ def defineThetaAndRanges():
 	theta = [];
 	xRange = []
 	theta.append(-2.0); xRange.append([1, 1]);
-	theta.append(3.0); xRange.append([-1, 1]);
-	theta.append(-2.0); xRange.append([-1, 1	]);
-	theta.append(5.0); xRange.append([-1, 1]);
+	theta.append(3.0); xRange.append([-50, 50]);
+	theta.append(-2.0); xRange.append([-100	, 100]);
+	theta.append(5.0); xRange.append([-200, 300]);
 
 	theta = theta / np.max(np.abs(theta));
 	return np.array(theta), np.array(xRange)
@@ -52,31 +52,15 @@ def computeY(theta, X, noise):
 
 
 def main():
-	m = 10;
+	m = 100;
 	noise = 0.0;  # enter percent noise
 	thetaRef, xRange = defineThetaAndRanges()
 	X, y, yIdeal = genData.generateData(thetaRef, xRange, noise, m, computeY)
 
-	#print X
-	maxX = np.max(X,axis=0)
-	minX = np.min(X,axis=0)
-	#print minX
-	midX = (maxX + minX)/2
-	#print midX
-	rangeX = maxX - minX
-	print "rangeX", rangeX
-	#print X-midX
+	
+	#exit()
 
-	for i in range(1,X.shape[1]):
-		print "ri", rangeX[i]
-		print X[:,i]
-		X[:,i] = 2*(X[:,i]-midX[i])/rangeX[i]
-
-	print X
-	print y
-		exit()
-
-	#X = norm.normalize(X)
+	X = norm.normalize(X)
 	N = X[0].shape[0]  # n = N -1  is the number of features
 
 	nIter = 1000;

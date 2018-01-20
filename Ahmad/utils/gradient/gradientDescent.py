@@ -106,7 +106,7 @@ def plotDataAndDecisionBoundary3D(X, thetaFinal, y, block):
 	x1max = np.max(x1);
 	x2min = np.min(x2);
 	x2max = np.max(x2);
-	x1 = np.array([x1min,1,1,x1min])
+	x1 = np.array([x1min,x1max,x1max,x1min])
 	x2 = np.array([x2min,x2min, x2max, x2max])
 	#x3 = np.array([.5, .5, .5, .5])
 
