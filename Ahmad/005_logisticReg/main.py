@@ -52,12 +52,17 @@ def computeY(theta, X, noise):
 
 
 def main():
-	m = 500;
+	m = 10;
 	noise = .02;  # enter percent noise
 	thetaRef, xRange = defineThetaAndRanges()
 	X, y, yIdeal = genData.generateData(thetaRef, xRange, noise, m, computeY)
-	#print X
-	#exit()
+
+	print X
+	maxX = np.max(X,axis=0)
+	minX = np.min(X,axis=0)
+	print minX
+	exit()
+
 	#X = norm.normalize(X)
 	N = X[0].shape[0]  # n = N -1  is the number of features
 
@@ -68,7 +73,6 @@ def main():
 
 	gradDescent.plotCost(thetas, lossArr, False)
 
-	#gradDescent.plotCost3D(thetas, lossArr,X,y, True)
 	thetaFinal = thetas[-1];
 	print i, '\n ThetaRef', thetaRef, '\n ThetaEst', thetas[-1], '\n Error', thetaFinal - thetaRef
 
