@@ -57,10 +57,8 @@ def main():
 	thetaRef, xRange = defineThetaAndRanges()
 	X, y, yIdeal = genData.generateData(thetaRef, xRange, noise, m, computeY)
 
-	
-	#exit()
-
 	X = norm.normalize(X)
+
 	N = X[0].shape[0]  # n = N -1  is the number of features
 
 	nIter = 1000;

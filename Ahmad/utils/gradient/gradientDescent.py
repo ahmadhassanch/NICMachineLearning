@@ -117,3 +117,31 @@ def plotDataAndDecisionBoundary3D(X, thetaFinal, y, block):
 	verts = [zip(x1, x2, x3)]
 	ax.add_collection3d(Poly3DCollection(verts))
 	plt.show(block = block)
+
+def plotDataAndRegressionPlane3D(X, thetaFinal, y, block):
+	x1 = X[:,1];
+	x2 = X[:,2];
+	#x3 = X[:,3];
+	
+	fig = plt.figure()
+	ax = fig.add_subplot(111,projection='3d')
+	ax.scatter(x1,x2,y,c='orange',	marker='o')
+	ax.set_xlabel('x1')
+	ax.set_ylabel('x2')
+	ax.set_zlabel('y')
+
+	x1min = np.min(x1);
+	x1max = np.max(x1);
+	x2min = np.min(x2);
+	x2max = np.max(x2);
+	x1 = np.array([x1min,x1max,x1max,x1min])
+	x2 = np.array([x2min,x2min, x2max, x2max])
+	#x3 = np.array([.5, .5, .5, .5])
+
+	t0 = thetaFinal[0]
+	t1 = thetaFinal[1]
+	t2 = thetaFinal[2]
+	yn = t0 + t1*x1 + t2*x2; 
+	verts = [zip(x1, x2, yn)]
+	ax.add_collection3d(Poly3DCollection(verts))
+	plt.show(block = block)
