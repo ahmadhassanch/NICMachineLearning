@@ -13,17 +13,14 @@ bias = 2;
 
 weights = np.asarray(weights)
 x = np.random.rand(input_length,dataset_size)		# matrix of inputs
-c = bias; #np.asarray([bias])
+c = bias; 
 
 y = np.matmul(weights,x) + c;			# array of ground truths
 
-# using x and y figure out a and b
 hX = tf.placeholder(tf.float32, x.shape)
 hY = tf.placeholder(tf.float32, y.shape)
 
-suggested_m_shape = [1,input_length]
-
-tWeights = tf.zeros(suggested_m_shape);
+tWeights = tf.zeros([1,input_length]);
 tBias = tf.zeros([1]);
 
 vB = tf.Variable(tBias)
@@ -43,14 +40,8 @@ with tf.Session() as sess:
 
 	for i in xrange(100000):
 			yret,lret,_,_vW, _vB =  sess.run([vYref,loss,train_op, vW, vB], feeddict)
-			
 			print i,lret,_vW, _vB
-			if lret <.00001 : 
-				print "Converged", _vW, _vB
-				break;
-
-	print np.asarray(yret.shape)
-	print np.asarray(lret)
+			if lret <.00001: break;
 
 print "Converged Loss = ", lret, ", m = ", _vW,", c = ", _vB
 
