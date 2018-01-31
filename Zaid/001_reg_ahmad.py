@@ -1,14 +1,13 @@
 import numpy as np 
 import tensorflow as tf
 
-
 def lossFunc(y,y_pred):
 	squares = tf.square(y-y_pred)
 	loss = tf.reduce_mean(squares)
 	return loss
 
 dataset_size = 3
-weights = [3, 4];     # w1, w2, w3
+weights = [-3, 4];     
 input_length = len(weights);
 bias = 2;
 
