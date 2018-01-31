@@ -28,9 +28,9 @@ def defineThetaAndRanges():
 	theta = [];
 	xRange = []
 	theta.append(-2.0); xRange.append([1, 1]);
-	theta.append(3.0); xRange.append([-50, 50]);
-	theta.append(-2.0); xRange.append([-100	, 100]);
-	theta.append(5.0); xRange.append([-200, 300]);
+	theta.append(3.0); xRange.append([-1, 1]);
+	theta.append(-2.0); xRange.append([-1, 1]);
+	theta.append(5.0); xRange.append([-1, 1]);
 
 	theta = theta / np.max(np.abs(theta));
 	return np.array(theta), np.array(xRange)
@@ -52,7 +52,7 @@ def computeY(theta, X, noise):
 
 
 def main():
-	m = 100;
+	m = 300;
 	noise = 0.0;  # enter percent noise
 	thetaRef, xRange = defineThetaAndRanges()
 	X, y, yIdeal = genData.generateData(thetaRef, xRange, noise, m, computeY)

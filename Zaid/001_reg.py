@@ -1,8 +1,11 @@
 import numpy as np 
 import tensorflow as tf
 
-input_length = 1
+
 dataset_size = 3
+weights = [3, 4];     # w1, w2, w3
+input_length = len(weights);
+bias = 2;
 
 print "Hello"
 
@@ -12,13 +15,13 @@ def lossFunc(y,y_pred):
 	return loss
 
 
-m = np.asarray([3])
+weights = np.asarray(weights)
 x = np.random.rand(input_length,dataset_size)		# matrix of inputs
-c = np.asarray([2])
+c = bias; #np.asarray([bias])
 
-y = np.matmul(m,x) + c;			# array of ground truths
+y = np.matmul(weights,x) + c;			# array of ground truths
 
-print m,x,c,y
+print weights,x,c,y
 
 
 # using x and y figure out a and b
@@ -33,7 +36,7 @@ with tf.Graph().as_default():
 
 	y_pred = tf.matmul(suggested_m,x_holder) + suggested_c
 
-	loss = lossFunc(y,y_pred)
+	loss = lossFunc(y_holder,y_pred)
 	train_op = tf.train.AdamOptimizer(5e-4).minimize(loss)
 
 	init = tf.global_variables_initializer()
