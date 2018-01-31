@@ -26,7 +26,7 @@ print weights.shape
 print suggested_m_shape
 #exit()
 tWeights = tf.zeros(suggested_m_shape);
-suggested_c = tf.Variable(tf.truncated_normal(shape = [1,], stddev = 1.0/input_length))
+suggested_c = tf.Variable(tf.zeros([1])
 
 vWeights = tf.Variable(tWeights)
 
