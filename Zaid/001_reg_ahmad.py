@@ -2,18 +2,15 @@ import numpy as np
 import tensorflow as tf
 
 
-dataset_size = 3
-weights = [3, 4];     # w1, w2, w3
-input_length = len(weights);
-bias = 2;
-
-print "Hello"
-
 def lossFunc(y,y_pred):
 	squares = tf.square(y-y_pred)
 	loss = tf.reduce_mean(squares)
 	return loss
 
+dataset_size = 3
+weights = [3, 4];     # w1, w2, w3
+input_length = len(weights);
+bias = 2;
 
 weights = np.asarray(weights)
 x = np.random.rand(input_length,dataset_size)		# matrix of inputs
@@ -21,14 +18,14 @@ c = bias; #np.asarray([bias])
 
 y = np.matmul(weights,x) + c;			# array of ground truths
 
-print weights,x,c,y
-
-
 # using x and y figure out a and b
-x_holder = tf.placeholder(tf.float32, shape = (input_length, dataset_size))
-y_holder = tf.placeholder(tf.float32, shape = (dataset_size))
+x_holder = tf.placeholder(tf.float32, x.shape)
+y_holder = tf.placeholder(tf.float32, y.shape)
 
 suggested_m_shape = [1,input_length]
+print weights.shape
+print suggested_m_shape
+#exit()
 tensor_m = tf.truncated_normal(suggested_m_shape, 1.0/input_length)
 suggested_c = tf.Variable(tf.truncated_normal(shape = [1,], stddev = 1.0/input_length))
 
