@@ -8,40 +8,38 @@ def lossFunc(y,y_pred):
 
 dataset_size = 3
 weights = [-3, 4];     
-input_length = len(weights);
+param_length = len(weights);
 bias = 2;
 
 weights = np.asarray(weights)
-x = np.random.rand(input_length,dataset_size)		# matrix of inputs
+x = np.random.rand(param_length,dataset_size)		# matrix of inputs
 c = bias; 
 
 y = np.matmul(weights,x) + c;			# array of ground truths
 
-hX = tf.placeholder(tf.float32, x.shape)
-hY = tf.placeholder(tf.float32, y.shape)
+hXin  = tf.placeholder('float')
+hYout = tf.placeholder('float')
 
-tWeights = tf.zeros([1,input_length]);
-tBias = tf.zeros([1]);
+vW = tf.Variable(tf.zeros([1,param_length]));
+vB = tf.Variable(tf.zeros([1]));
+vYpred = tf.matmul(vW,hXin) + vB
 
-vB = tf.Variable(tBias)
-vW = tf.Variable(tWeights)
-
-vYref = tf.matmul(vW,hX) + vB
-
-loss = lossFunc(hY,vYref)
-train_op = tf.train.AdamOptimizer(.1).minimize(loss)
+loss = lossFunc(hYout,vYpred)
+train_op = tf.train.AdamOptimizer(1).minimize(loss)
+#train_op = tf.train.GradientDescentOptimizer(.5).minimize(loss)
 
 init = tf.global_variables_initializer()
-feeddict = {hX: x, hY:y}
+feeddict = {hXin: x, hYout:y}
 
-with tf.Session() as sess:
-	
-	sess.run(init)
+sess = tf.Session()
+sess.run(init)
 
-	for i in xrange(100000):
-			yret,lret,_,_vW, _vB =  sess.run([vYref,loss,train_op, vW, vB], feeddict)
-			print i,lret,_vW, _vB
-			if lret <.00001: break;
+for i in xrange(100000):
+	yret,lret,_,_vW, _vB =  sess.run([vYpred,loss,train_op, vW, vB], feeddict)
+	print i,lret,_vW, _vB
+	if lret <.0000	001: break;
+
+sess.close();
 
 print "Converged Loss = ", lret, ", m = ", _vW,", c = ", _vB
 
