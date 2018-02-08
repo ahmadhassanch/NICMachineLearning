@@ -26,29 +26,27 @@ optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)
 sess = tf.Session();
 init = tf.global_variables_initializer()
 
+sess.run(init)
 
-with tf.Session() as sess:
-    sess.run(init)
-    # Training cycle
-    for epoch in range(training_epochs):
-        avg_cost = 0.
-        total_batch = int(mnist.train.num_examples/batch_size)
-        # Loop over all batches
-        for i in range(total_batch):
-            batch_xs, batch_ys = mnist.train.next_batch(batch_size)
-            # Run optimization op (backprop) and cost op (to get loss value)
-            _, c = sess.run([optimizer, cost], feed_dict={x: batch_xs,
-                                                          y: batch_ys})
-            # Compute average loss
-            avg_cost += c / total_batch
-        # Display logs per epoch step
-        if (epoch+1) % display_step == 0:
-            print("Epoch:", '%04d' % (epoch+1), "cost=", "{:.9f}".format(avg_cost))
+for epoch in range(training_epochs):
+    avg_cost = 0.
+    total_batch = int(mnist.train.num_examples/batch_size)
+    # Loop over all batches
+    for i in range(total_batch):
+        batch_xs, batch_ys = mnist.train.next_batch(batch_size)
+        # Run optimization op (backprop) and cost op (to get loss value)
+        _, c = sess.run([optimizer, cost], feed_dict={x: batch_xs,
+                                                      y: batch_ys})
+        avg_cost += c / total_batch     # Compute average loss
 
-    print("Optimization Finished!")
+    if (epoch+1) % display_step == 0:
+        print("Epoch:", '%04d' % (epoch+1), "cost=", "{:.9f}".format(avg_cost))
 
-    # Test model
-    correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
-    # Calculate accuracy
-    accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-    print("Accuracy:", accuracy.eval({x: mnist.test.images, y: mnist.test.labels}))
+print("Optimization Finished!")
+
+correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
+# Calculate accuracy
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+accuracy_ = sess.run(accuracy, {x: mnist.test.images, y: mnist.test.labels})
+print("Accuracy:", accuracy_)
+
