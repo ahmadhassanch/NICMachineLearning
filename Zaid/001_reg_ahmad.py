@@ -6,42 +6,40 @@ def lossFunc(y,y_pred):
 	loss = tf.reduce_mean(squares)
 	return loss
 
-dataset_size = 3
+m = 3
 weights = [-3, 4];     
-param_length = len(weights);
 bias = 2;
 
+n = len(weights);
 weights = np.asarray(weights)
-x = np.random.rand(param_length,dataset_size)		# matrix of inputs
-c = bias; 
+x = np.random.rand(n, m)		# matrix of inputs
+yRef = np.matmul(weights,x) + bias;	# array of Yref
 
-y = np.matmul(weights,x) + c;			# array of ground truths
+xin_holder  = tf.placeholder('float')
+yout_holder = tf.placeholder('float')
 
-hXin  = tf.placeholder('float')
-hYout = tf.placeholder('float')
+W = tf.Variable(tf.zeros([1,n]));
+B = tf.Variable(tf.zeros([1]));
+yPred = tf.matmul(W,xin_holder) + B
 
-vW = tf.Variable(tf.zeros([1,param_length]));
-vB = tf.Variable(tf.zeros([1]));
-vYpred = tf.matmul(vW,hXin) + vB
-
-loss = lossFunc(hYout,vYpred)
-train_op = tf.train.AdamOptimizer(1).minimize(loss)
-#train_op = tf.train.GradientDescentOptimizer(.5).minimize(loss)
+loss = lossFunc(yout_holder, yPred)
+#train_op = tf.train.AdamOptimizer(1).minimize(loss)
+train_op = tf.train.GradientDescentOptimizer(.5).minimize(loss)
 
 init = tf.global_variables_initializer()
-feeddict = {hXin: x, hYout:y}
+feeddict = {xin_holder: x, yout_holder:yRef}
 
 sess = tf.Session()
 sess.run(init)
 
 for i in xrange(100000):
-	yret,lret,_,_vW, _vB =  sess.run([vYpred,loss,train_op, vW, vB], feeddict)
-	print i,lret,_vW, _vB
-	if lret <.0000	001: break;
+	yPred_,loss_,_,W_, B_ =  sess.run([yPred,loss,train_op, W, B], feeddict)
+	print i,loss_,W_, B_
+	if loss_ <.0000001: break;
 
 sess.close();
 
-print "Converged Loss = ", lret, ", m = ", _vW,", c = ", _vB
+print "Converged Loss = ", loss_, ", m = ", W_,", c = ", B_
 
 
 

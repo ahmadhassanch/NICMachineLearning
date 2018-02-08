@@ -1,5 +1,6 @@
 import numpy as np 
 import tensorflow as tf
+#from plots import animateMultiple
 
 input_length = 2		# this is a constant for this example
 dataset_size = 1000
@@ -8,6 +9,8 @@ hidden1_size = 6
 hidden2_size = 6
 
 print "Hello"
+def column(matrix, i):
+    return [row[i] for row in matrix]
 
 def lossFunc1(y,y_pred,w1):
 	y_pred = tf.reshape(y_pred,[dataset_size,])
@@ -100,7 +103,7 @@ with tf.Graph().as_default():
 	print y.shape
 	print np.mean(y == yret)
 
-xlist = [column(wreturned1,0),column(wreturned2,0)]
-ylist = [column(wreturned1,1),column(wreturned2,1)]
+#xlist = [column(wreturned1,0),column(wreturned2,0)]
+#ylist = [column(wreturned1,1),column(wreturned2,1)]
 
-animateMultiple.animatePlots(xlist, ylist)
+#animateMultiple.animatePlots(xlist, ylist)
