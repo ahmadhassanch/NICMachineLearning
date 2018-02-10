@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 # Parameters
 learning_rate = 0.0000001
-training_epochs = 100
+training_epochs = 10000
 
 def genData():
 	weights = [3, 4];     # w1, w2, w3
