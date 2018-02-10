@@ -48,6 +48,6 @@ testing_cost = sess.run(cost, feed_dict={X: test_X, Y: test_Y})  # same function
 pred_TestY = sess.run(pred, feed_dict={X: test_X})   #Alternatively: #pred_TestY = W_ * test_X + b_
 sess.close()
 
-print("Epoch:", "trainCost=", cost_, "testCost=", testing_cost, "W=", W_, "b=", b_)
+print("Epoch:", "trainCost=", cost_, "testCost=", testing_cost, "W=", W_.T, "b=", b_)
 
 
