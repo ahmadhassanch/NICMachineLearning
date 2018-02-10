@@ -30,7 +30,7 @@ x_vals = np.array([[x[0], x[3]] for x in iris.data])
 y_vals = np.array([1 if y==0 else -1 for y in iris.target])
 
 # Split data into train/test sets
-train_indices = np.random.choice(len(x_vals), round(len(x_vals)*0.8), replace=False)
+train_indices = np.random.choice(len(x_vals), int(round(len(x_vals)*0.8)), replace=False)
 test_indices = np.array(list(set(range(len(x_vals))) - set(train_indices)))
 x_vals_train = x_vals[train_indices]
 x_vals_test = x_vals[test_indices]
@@ -49,7 +49,7 @@ A = tf.Variable(tf.random_normal(shape=[2,1]))
 b = tf.Variable(tf.random_normal(shape=[1,1]))
 
 # Declare model operations
-model_output = tf.sub(tf.matmul(x_data, A), b)
+model_output = tf.subtract(tf.matmul(x_data, A), b)
 
 # Declare vector L2 'norm' function squared
 l2_norm = tf.reduce_sum(tf.square(A))
@@ -59,9 +59,9 @@ l2_norm = tf.reduce_sum(tf.square(A))
 # L2 regularization parameter, alpha
 alpha = tf.constant([0.01])
 # Margin term in loss
-classification_term = tf.reduce_mean(tf.maximum(0., tf.sub(1., tf.mul(model_output, y_target))))
+classification_term = tf.reduce_mean(tf.maximum(0., tf.subtract(1., tf.multiply(model_output, y_target))))
 # Put terms together
-loss = tf.add(classification_term, tf.mul(alpha, l2_norm))
+loss = tf.add(classification_term, tf.multiply(alpha, l2_norm))
 
 # Declare prediction function
 prediction = tf.sign(model_output)
@@ -79,7 +79,7 @@ sess.run(init)
 loss_vec = []
 train_accuracy = []
 test_accuracy = []
-for i in range(500):
+for i in range(5000):
     rand_index = np.random.choice(len(x_vals_train), size=batch_size)
     rand_x = x_vals_train[rand_index]
     rand_y = np.transpose([y_vals_train[rand_index]])
