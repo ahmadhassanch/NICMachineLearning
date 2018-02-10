@@ -21,7 +21,7 @@ Y = tf.placeholder("float")
 # Set model weights and Model
 W = tf.Variable(np.random.randn(), name="weight")
 b = tf.Variable(np.random.randn(), name="bias")
-pred = tf.add(tf.multiply(X, W), b)
+pred = tf.add(tf.matmul(X, W), b)
 cost = tf.reduce_mean(tf.square(pred-Y))
 optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)
 
