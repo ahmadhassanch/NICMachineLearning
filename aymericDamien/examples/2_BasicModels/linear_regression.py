@@ -26,19 +26,21 @@ cost = tf.reduce_mean(tf.square(pred-Y))
 optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)
 
 init = tf.global_variables_initializer()
+
 sess = tf.Session()
 sess.run(init)
-
 for epoch in range(training_epochs):
     _, cost_, W_, b_, pred_ = sess.run([optimizer, cost, W, b, pred], feed_dict={X: train_X, Y: train_Y})
 
 testing_cost = sess.run(cost, feed_dict={X: test_X, Y: test_Y})  # same function as cost above
+pred_TestY = sess.run(pred, feed_dict={X: test_X})   #Alternatively: #pred_TestY = W_ * test_X + b_
+sess.close()
 
 print("Epoch:", "trainCost=", cost_, "testCost=", testing_cost, "W=", W_, "b=", b_)
 plt.subplot(2,1,1)
 plt.plot(train_X, train_Y, 'ro', train_X, pred_, label='Original data')
 
 plt.subplot(2,1,2)
-pred_TestY = W_ * test_X + b_
+
 plt.plot(test_X, test_Y, 'bo',test_X, pred_TestY, label='Testing data')
 plt.show()

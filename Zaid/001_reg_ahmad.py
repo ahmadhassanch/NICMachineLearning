@@ -32,9 +32,9 @@ feeddict = {xin_holder: x, yout_holder:yRef}
 sess = tf.Session()
 sess.run(init)
 
-for i in xrange(100000):
+for epoch in xrange(100000):
 	yPred_,loss_,_,W_, B_ =  sess.run([yPred,loss,train_op, W, B], feeddict)
-	print i,loss_,W_, B_
+	print epoch,loss_,W_, B_
 	if loss_ <.0000001: break;
 
 sess.close();

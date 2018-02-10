@@ -23,11 +23,10 @@ cost = tf.reduce_mean(-tf.reduce_sum(y*tf.log(pred), reduction_indices=1))
 # Gradient Descent
 optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)
 
-sess = tf.Session();
 init = tf.global_variables_initializer()
 
+sess = tf.Session();
 sess.run(init)
-
 for epoch in range(training_epochs):
     avg_cost = 0.
     total_batch = int(mnist.train.num_examples/batch_size)
@@ -41,6 +40,7 @@ for epoch in range(training_epochs):
 
     if (epoch+1) % display_step == 0:
         print("Epoch:", '%04d' % (epoch+1), "cost=", "{:.9f}".format(avg_cost))
+sess.close()
 
 print("Optimization Finished!")
 
